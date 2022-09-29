@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    // "stylelint.vscode-stylelint",
+    "shardulm94.trailing-spaces",
+    "eamodio.gitlens",
+    // "graphql.vscode-graphql",
+    "dsznajder.es7-react-js-snippets"
+  ]
+}
