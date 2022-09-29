@@ -1,22 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { Result } from '@/libs/fetcher';
 import { sleep } from '@/utils/sleep';
 
-// Todo 関連のAPIリクエストのモック
+import { Todo } from 'domains/Todo';
 
-type Todo = {
-  id: string;
-  title: string;
-  body: string;
-  isComplete: boolean;
-};
+// Todo 関連のAPIリクエストのモック
 
 const data: Todo[] = [
   {
     id: '1',
     title: 'サンプルプロジェクトを作る',
     body: 'Recoil を使ってみてやりたいことができるか確かめる。',
-    isComplete: false,
+    isComplete: true,
   },
   {
     id: '2',
@@ -27,16 +23,25 @@ const data: Todo[] = [
   { id: '3', title: 'Zustand もやる', body: '', isComplete: false },
 ];
 
-export const getTodos = async (): Promise<Todo[]> => {
-  await sleep();
-  return data;
+const generateResponse = <T>(data: T): Result<T> => {
+  return {
+    data,
+    error: undefined,
+  };
 };
 
-export const createTodo = async (newTodo: Omit<Todo, 'id'>): Promise<Todo> => {
+export const getTodos = async (): Promise<Result<Todo[]>> => {
+  await sleep();
+  return generateResponse(data);
+};
+
+export const createTodo = async (
+  newTodo: Omit<Todo, 'id'>
+): Promise<Result<Todo>> => {
   await sleep();
   const todo = { ...newTodo, id: uuidv4() };
   data.push(todo);
-  return todo;
+  return generateResponse(todo);
 };
 
 export const updateTodo = async ({
@@ -45,9 +50,9 @@ export const updateTodo = async ({
 }: {
   id: Todo['id'];
   params: Omit<Todo, 'id'>;
-}): Promise<Todo> => {
+}): Promise<Result<Todo>> => {
   await sleep();
   const todo = data.find((todo) => todo.id === id);
   if (todo === undefined) throw new Error('not found');
-  return { ...todo, ...params, id };
+  return generateResponse({ ...todo, ...params, id });
 };

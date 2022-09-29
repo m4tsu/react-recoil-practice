@@ -1,7 +1,8 @@
 export class ServerError extends Error {}
 export class NetworkError extends Error {}
 
-type Result<T> =
+/** fetcher のレスポンスが取りうる型 */
+export type Result<T> =
   | {
       data: T;
       error: undefined;
