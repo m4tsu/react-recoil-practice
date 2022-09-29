@@ -27,7 +27,7 @@ export const AppLayout = ({ children }: Props) => {
 
             <Flex gap="4">
               <Link
-                href="/populationChanges"
+                href="/todos"
                 styles={{
                   display: 'flex',
                   px: '4',
@@ -38,7 +38,7 @@ export const AppLayout = ({ children }: Props) => {
                   },
                 }}
               >
-                <Text>人口推移ページへ</Text>
+                <Text>Todoリスト</Text>
               </Link>
             </Flex>
           </Flex>
