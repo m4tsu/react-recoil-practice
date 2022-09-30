@@ -7,6 +7,8 @@ export type Todo = {
   title: string;
   body: string;
   isComplete: boolean;
+  /** 2022-09-01T00:00:40+09:00 みたいな文字列*/
+  createdAt: string;
 };
 
 export const todoSchema = schemaForType<Todo>()(
@@ -15,5 +17,6 @@ export const todoSchema = schemaForType<Todo>()(
     title: z.string(),
     body: z.string(),
     isComplete: z.boolean(),
+    createdAt: z.string(),
   })
 );

@@ -1,5 +1,5 @@
 import { Box, Button, Flex, ListItem } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { TodoState } from '../../slices/TodoList/model';
 import { useTodo } from '../../slices/TodoList/usecases';
@@ -8,7 +8,7 @@ type Props = {
   todoId: TodoState['id'];
   onClickStatus: (todoId: TodoState['id']) => void;
 };
-export const TodoListItem: FC<Props> = ({ todoId, onClickStatus }) => {
+export const TodoListItem: FC<Props> = memo(({ todoId, onClickStatus }) => {
   const todo = useTodo(todoId);
 
   return (
@@ -31,4 +31,5 @@ export const TodoListItem: FC<Props> = ({ todoId, onClickStatus }) => {
       </Flex>
     </ListItem>
   );
-};
+});
+TodoListItem.displayName = 'TodoListItem';

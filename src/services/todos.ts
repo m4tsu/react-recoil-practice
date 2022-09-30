@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Result } from '@/libs/fetcher';
@@ -13,14 +14,22 @@ const data: Todo[] = [
     title: 'サンプルプロジェクトを作る',
     body: 'Recoil を使ってみてやりたいことができるか確かめる。',
     isComplete: true,
+    createdAt: dayjs().subtract(10, 'days').format(),
   },
   {
     id: '2',
     title: 'Recoilのスクラップか記事書く',
     body: '',
     isComplete: false,
+    createdAt: dayjs().subtract(5, 'days').format(),
   },
-  { id: '3', title: 'Zustand もやる', body: '', isComplete: false },
+  {
+    id: '3',
+    title: 'Zustand もやる',
+    body: '',
+    isComplete: false,
+    createdAt: dayjs().subtract(3, 'days').format(),
+  },
 ];
 
 const generateResponse = <T>(data: T): Result<T> => {
@@ -36,10 +45,10 @@ export const getTodos = async (): Promise<Result<Todo[]>> => {
 };
 
 export const postTodo = async (
-  newTodo: Omit<Todo, 'id'>
+  newTodo: Omit<Todo, 'id' | 'createdAt'>
 ): Promise<Result<Todo>> => {
   await sleep();
-  const todo = { ...newTodo, id: uuidv4() };
+  const todo = { ...newTodo, id: uuidv4(), createdAt: dayjs().format() };
   data.push(todo);
   return generateResponse(todo);
 };

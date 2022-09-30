@@ -2,8 +2,14 @@ import { useRecoilCallback, useRecoilValue } from 'recoil';
 
 import { patchTodo } from '@/services/todos';
 
-import { TodoInput, TodoState } from './model';
-import { todoIds, todoEntity, editingTodoId } from './store';
+import { TodoInput, TodosFilter, TodoState } from './model';
+import {
+  todoIds,
+  todoEntity,
+  editingTodoId,
+  filterdTodoIds,
+  todosFilter,
+} from './store';
 
 // 「状態管理」をコンポーネントに提供する層
 
@@ -12,11 +18,26 @@ import { todoIds, todoEntity, editingTodoId } from './store';
 
 export const useTodoIds = () => useRecoilValue(todoIds);
 
-export const useTodo = (todoId: TodoState['id']) =>
-  useRecoilValue(todoEntity(todoId));
+export const useTodo = (todoId: TodoState['id']) => {
+  console.log('useTodo!!!');
+  return useRecoilValue(todoEntity(todoId));
+};
+
+export const useTodosFilter = () => useRecoilValue(todosFilter);
+
+export const useFilteredTodoIds = () => useRecoilValue(filterdTodoIds);
 
 // 状態を更新するアクションは基本的に不変なはずなので単一のオブジェクトとしてまとめたい
+// 冗長で見づらいしファクトリ関数的なものを用意したい
 export const todoActions = {
+  useFilterTodosBy: () =>
+    useRecoilCallback(
+      ({ set }) =>
+        (filter: TodosFilter) => {
+          set(todosFilter, filter);
+        },
+      []
+    ),
   useUpdateTodo: () =>
     useRecoilCallback(
       ({ set }) =>
@@ -24,7 +45,8 @@ export const todoActions = {
           const result = await patchTodo({ id: todoId, params });
           if (result.error) throw new Error('patchTodo Error');
           set(todoEntity(todoId), (prev) => ({ ...prev, ...result.data }));
-        }
+        },
+      []
     ),
   useToggleStatus: () =>
     useRecoilCallback(
@@ -32,7 +54,6 @@ export const todoActions = {
         async (todoId: TodoState['id']) => {
           const todo = await snapshot.getPromise(todoEntity(todoId));
           set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
-          console.log(todo);
           const result = await patchTodo({
             id: todoId,
             params: { ...todo, isComplete: !todo.isComplete },
@@ -44,14 +65,23 @@ export const todoActions = {
             ...result.data,
             isLoading: false,
           }));
-        }
+        },
+      []
     ),
   useStartEditing: () =>
-    useRecoilCallback(({ set }) => (todoId: TodoState['id']) => {
-      set(editingTodoId, todoId);
-    }),
-  useEdixEditing: () =>
-    useRecoilCallback(({ set }) => () => {
-      set(editingTodoId, null);
-    }),
+    useRecoilCallback(
+      ({ set }) =>
+        (todoId: TodoState['id']) => {
+          set(editingTodoId, todoId);
+        },
+      []
+    ),
+  useExitEditing: () =>
+    useRecoilCallback(
+      ({ set }) =>
+        () => {
+          set(editingTodoId, null);
+        },
+      []
+    ),
 };
