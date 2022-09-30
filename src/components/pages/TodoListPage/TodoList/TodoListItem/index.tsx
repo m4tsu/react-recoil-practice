@@ -1,14 +1,16 @@
 import { Box, Button, Flex, ListItem } from '@chakra-ui/react';
 import { FC } from 'react';
 
-import { TodoState } from '../../models/Todo';
-import { useTodo } from '../../usecases/todos/store';
+import { TodoState } from '../../slices/TodoList/model';
+import { useTodo } from '../../slices/TodoList/usecases';
 
 type Props = {
   todoId: TodoState['id'];
+  onClickStatus: (todoId: TodoState['id']) => void;
 };
-export const TodoListItem: FC<Props> = ({ todoId }) => {
+export const TodoListItem: FC<Props> = ({ todoId, onClickStatus }) => {
   const todo = useTodo(todoId);
+
   return (
     <ListItem listStyleType="none" p="1">
       <Flex
@@ -19,7 +21,11 @@ export const TodoListItem: FC<Props> = ({ todoId }) => {
         borderColor="gray.400"
       >
         <Box>{todo.title}</Box>
-        <Button colorScheme={todo.isComplete ? 'blue' : 'gray'}>
+        <Button
+          colorScheme={todo.isComplete ? 'blue' : 'gray'}
+          onClick={() => onClickStatus(todoId)}
+          disabled={todo.isLoading}
+        >
           {todo.isComplete ? '完了' : '未完了'}
         </Button>
       </Flex>

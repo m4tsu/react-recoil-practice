@@ -1,0 +1,12 @@
+- pages - routing and layout
+- features
+  - TodoListPage
+    - component
+      - index.tsx
+      - TodoList
+        - index.tsx
+    - slices - view 以外の層
+      - ModelName
+        - model.ts - モデリング対象の型とドメインロジック
+        - store.ts - React State の実装
+        - usecases.ts - コンポーネント等で実行したい処理を提供する。主に カスタムフックで実装されそう

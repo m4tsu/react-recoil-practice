@@ -35,7 +35,7 @@ export const getTodos = async (): Promise<Result<Todo[]>> => {
   return generateResponse(data);
 };
 
-export const createTodo = async (
+export const postTodo = async (
   newTodo: Omit<Todo, 'id'>
 ): Promise<Result<Todo>> => {
   await sleep();
@@ -44,7 +44,7 @@ export const createTodo = async (
   return generateResponse(todo);
 };
 
-export const updateTodo = async ({
+export const patchTodo = async ({
   id,
   params,
 }: {
