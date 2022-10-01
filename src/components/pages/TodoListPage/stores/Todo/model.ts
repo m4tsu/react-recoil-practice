@@ -20,17 +20,26 @@ export const isRecently = (todo: Todo) => {
 };
 
 /** 期限を延長できるかどうか */
-export const canPostPone = (
-  todo: Pick<Todo, 'isComplete' | 'dueDate' | 'postponeCount'>
-) => {
-  // 既に完了している
-  if (todo.isComplete) return false;
-  // 既に期限が過ぎている
-  if (dayjs() > dayjs(todo.dueDate)) return false;
-  // 回数制限に達している
-  if (todo.postponeCount >= POSTPONE_LIMIT) return false;
-  return true;
-};
+export const canPostPoneSchema = todoSchema.superRefine((todo, ctx) => {
+  if (todo.isComplete) {
+    ctx.addIssue({
+      code: 'custom',
+      message: '既に完了しています。',
+    });
+  }
+  if (dayjs() > dayjs(todo.dueDate)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: '既に期限が過ぎています。',
+    });
+  }
+  if (todo.postponeCount >= POSTPONE_LIMIT) {
+    ctx.addIssue({
+      code: 'custom',
+      message: '期限は一度しか延期できません。',
+    });
+  }
+});
 
 export const todoInputSchema = todoSchema
   .omit({ id: true, dueDate: true, postponeCount: true })

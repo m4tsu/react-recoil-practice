@@ -77,3 +77,22 @@ export const patchTodo = async ({
   if (todo === undefined) throw new Error('not found');
   return generateResponse({ ...todo, ...params, id });
 };
+
+export const updateStatus = async (id: Todo['id'], isComplete: boolean) => {
+  await sleep();
+  const todo = data.find((todo) => todo.id === id);
+  if (todo === undefined) throw new Error('not found');
+  return generateResponse({ ...todo, isComplete, id });
+};
+
+export const postpone = async (id: Todo['id']) => {
+  await sleep();
+  const todo = data.find((todo) => todo.id === id);
+  if (todo === undefined) throw new Error('not found');
+  return generateResponse({
+    ...todo,
+    id,
+    postponeCount: todo.postponeCount + 1,
+    dueDate: dayjs(todo.dueDate).add(3, 'days').format(),
+  });
+};

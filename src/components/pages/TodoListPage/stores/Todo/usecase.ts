@@ -1,8 +1,8 @@
 import { useRecoilValue, useRecoilCallback } from 'recoil';
 
-import { patchTodo } from '@/services/todos';
+import { patchTodo, postpone, updateStatus } from '@/services/todos';
 
-import { Todo, TodoInput } from './model';
+import { canPostPoneSchema, Todo, TodoInput } from './model';
 import { todoEntity } from './state';
 
 export const useTodo = (todoId: Todo['id']) => {
@@ -35,16 +35,36 @@ export const todoActions = {
         async (todoId: Todo['id']) => {
           const todo = await snapshot.getPromise(todoEntity(todoId));
           set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
-          const result = await patchTodo({
-            id: todoId,
-            params: { ...todo, isComplete: !todo.isComplete },
-          });
+          const result = await updateStatus(todoId, !todo.isComplete);
           if (result.error) throw new Error('patchTodo Error');
           set(todoEntity(todoId), (prev) => ({
             ...prev,
             ...result.data,
             isLoading: false,
           }));
+        },
+      []
+    ),
+  usePostpone: () =>
+    useRecoilCallback(
+      ({ set, snapshot }) =>
+        async (todoId: Todo['id']): Promise<{ errors?: string[] }> => {
+          const todo = await snapshot.getPromise(todoEntity(todoId));
+          const validationResult = canPostPoneSchema.safeParse(todo);
+          if (!validationResult.success) {
+            return {
+              errors: validationResult.error.errors.map((e) => e.message),
+            };
+          }
+          set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
+          const result = await postpone(todoId);
+          if (result.error) throw new Error('patchTodo Error');
+          set(todoEntity(todoId), (prev) => ({
+            ...prev,
+            ...result.data,
+            isLoading: false,
+          }));
+          return {};
         },
       []
     ),

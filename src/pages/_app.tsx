@@ -5,6 +5,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
 import { AppLayout } from '@/components/layouts/AppLayout';
+import { ToastContainer } from '@/libs/chakra/toast';
 
 import type { AppProps } from 'next/app';
 
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <AppLayout>
         <Component {...pageProps} />
       </AppLayout>
+      <ToastContainer />
     </ChakraProvider>
   );
 }

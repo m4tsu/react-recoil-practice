@@ -8,8 +8,11 @@ import {
   Text,
   UnorderedList,
 } from '@chakra-ui/react';
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
+import { toast } from '@/libs/chakra/toast';
+
+import { Todo } from '../stores/Todo/model';
 import { todoActions } from '../stores/Todo/usecase';
 import { TodosFilter } from '../stores/TodoList/model';
 import {
@@ -23,7 +26,7 @@ import { NewTodoForm } from './NewTodoForm';
 import { TodoListItem } from './TodoListItem';
 
 const { useFilterTodosBy, useStartEditing } = todoListActions;
-const { useToggleStatus } = todoActions;
+const { useToggleStatus, usePostpone } = todoActions;
 
 const filterOptions: { value: TodosFilter; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -33,9 +36,25 @@ const filterOptions: { value: TodosFilter; label: string }[] = [
 export const TodoList: FC = () => {
   const todoIds = useFilteredTodoIds();
   const toggleStatus = useToggleStatus();
+  const postpone = usePostpone();
   const filterBy = useFilterTodosBy();
   const todosFilter = useTodosFilter();
   const startEditing = useStartEditing();
+
+  const handleClickPostpone = useCallback(
+    async (todoId: Todo['id']) => {
+      const { errors } = await postpone(todoId);
+      if (errors) {
+        toast({
+          title: '期限の延長ができませんでした。',
+          status: 'error',
+          description: errors.map((e) => <Text key={e}>- {e}</Text>),
+          position: 'top-right',
+        });
+      }
+    },
+    [postpone]
+  );
 
   return (
     <Flex direction="column" gap="8">
@@ -74,6 +93,7 @@ export const TodoList: FC = () => {
               todoId={todoId}
               onClickStatus={toggleStatus}
               onClickEdit={startEditing}
+              onClickPostpone={handleClickPostpone}
             />
           ))}
         </UnorderedList>

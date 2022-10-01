@@ -1,4 +1,4 @@
-import { atom, atomFamily, selector, selectorFamily } from 'recoil';
+import { atomFamily, selector, selectorFamily } from 'recoil';
 
 import { Todo as TodoDomain } from '@/domains/Todo';
 import { generateUniqueKey } from '@/libs/recoil/utils';
