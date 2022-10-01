@@ -32,7 +32,7 @@ export const todoEntity = atomFamily<Todo, Todo['id']>({
         const todo = get(todosQuery).find((todo) => todo.id === todoId);
         if (todo === undefined) {
           // 新規作成時のデフォルト値
-          // 実際は useRecoilCallback の set で値を持ったデータが入るので、この状態でコンポーネントに現れることはない... なんかもっといいやり方ないのか？
+          // 実際は useRecoilCallback の set で値を持ったデータが入るので、この状態でコンポーネントに現れることはない... なんかもっといいやり方ありそう
           const newTodo: Todo = {
             id: todoId,
             title: '',
