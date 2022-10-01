@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import { Todo, todoSchema } from 'domains/Todo';
+import { Todo, todoSchema } from '@/domains/Todo';
 
 // Reactで扱いたい状態としての型
 export type TodoState = Todo & {

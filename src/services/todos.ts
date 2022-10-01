@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
+import { Todo } from '@/domains/Todo';
 import { Result } from '@/libs/fetcher';
 import { sleep } from '@/utils/sleep';
-
-import { Todo } from 'domains/Todo';
 
 // Todo 関連のAPIリクエストのモック
 
@@ -15,6 +14,8 @@ let data: Todo[] = [
     body: '',
     isComplete: false,
     createdAt: dayjs().subtract(3, 'days').format(),
+    dueDate: dayjs().subtract(3, 'days').add(7, 'days').format(),
+    postponeCount: 0,
   },
   {
     id: '2',
@@ -22,6 +23,8 @@ let data: Todo[] = [
     body: '',
     isComplete: false,
     createdAt: dayjs().subtract(5, 'days').format(),
+    dueDate: dayjs().subtract(5, 'days').add(7, 'days').format(),
+    postponeCount: 0,
   },
   {
     id: '1',
@@ -29,6 +32,8 @@ let data: Todo[] = [
     body: 'Recoil を使ってみてやりたいことができるか確かめる。',
     isComplete: true,
     createdAt: dayjs().subtract(10, 'days').format(),
+    dueDate: dayjs().subtract(10, 'days').add(7, 'days').format(),
+    postponeCount: 0,
   },
 ];
 
@@ -45,14 +50,16 @@ export const getTodos = async (): Promise<Result<Todo[]>> => {
 };
 
 export const postTodo = async (
-  newTodo: Omit<Todo, 'id' | 'isComplete' | 'createdAt'>
+  newTodo: Pick<Todo, 'title' | 'body'>
 ): Promise<Result<Todo>> => {
   await sleep();
-  const todo = {
+  const todo: Todo = {
     ...newTodo,
     id: uuidv4(),
     isComplete: false,
     createdAt: dayjs().format(),
+    dueDate: dayjs().add(7, 'days').format(),
+    postponeCount: 0,
   };
   data = [todo, ...data];
   return generateResponse(todo);

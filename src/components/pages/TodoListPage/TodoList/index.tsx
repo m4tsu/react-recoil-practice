@@ -10,18 +10,20 @@ import {
 } from '@chakra-ui/react';
 import { FC } from 'react';
 
-import { TodosFilter } from '../slices/TodoList/model';
+import { todoActions } from '../stores/Todo/usecase';
+import { TodosFilter } from '../stores/TodoList/model';
 import {
+  todoListActions,
   useFilteredTodoIds,
-  todoActions,
   useTodosFilter,
-} from '../slices/TodoList/usecases';
+} from '../stores/TodoList/usecase';
 
 import { EditTodoModal } from './EditTodoModal';
 import { NewTodoForm } from './NewTodoForm';
 import { TodoListItem } from './TodoListItem';
 
-const { useToggleStatus, useFilterTodosBy, useStartEditing } = todoActions;
+const { useFilterTodosBy, useStartEditing } = todoListActions;
+const { useToggleStatus } = todoActions;
 
 const filterOptions: { value: TodosFilter; label: string }[] = [
   { value: 'all', label: 'All' },

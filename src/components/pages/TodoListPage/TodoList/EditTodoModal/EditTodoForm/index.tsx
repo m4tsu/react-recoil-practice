@@ -13,17 +13,12 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import {
-  TodoState,
-  todoInputSchema,
-} from '@/components/pages/TodoListPage/slices/TodoList/model';
-
-import { Todo } from 'domains/Todo';
+import { todoInputSchema, Todo } from '../../../stores/Todo/model';
 
 type TodoInput = z.infer<typeof todoInputSchema>;
 
 type Props = {
-  todo: TodoState;
+  todo: Todo;
   onSubmit: (todoId: Todo['id'], todo: TodoInput) => void;
 };
 export const EditTodoForm: FC<Props> = ({ todo, onSubmit: onSubmitTodo }) => {

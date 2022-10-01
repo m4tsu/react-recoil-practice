@@ -9,14 +9,14 @@ import {
 } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
-import { TodoInput } from '../../slices/TodoList/model';
-import { todoActions, useEditingTodo } from '../../slices/TodoList/usecases';
+import { Todo, TodoInput } from '../../stores/Todo/model';
+import { todoActions } from '../../stores/Todo/usecase';
+import { todoListActions, useEditingTodo } from '../../stores/TodoList/usecase';
 
 import { EditTodoForm } from './EditTodoForm';
 
-import { Todo } from 'domains/Todo';
-
-const { useExitEditing, useUpdateTodo } = todoActions;
+const { useUpdateTodo } = todoActions;
+const { useExitEditing } = todoListActions;
 
 export const EditTodoModal = () => {
   const { onClose } = useDisclosure();

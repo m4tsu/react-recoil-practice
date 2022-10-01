@@ -2,13 +2,13 @@ import { Box, Button, Flex, ListItem, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { FC, memo } from 'react';
 
-import { TodoState } from '../../slices/TodoList/model';
-import { useTodo } from '../../slices/TodoList/usecases';
+import { Todo } from '../../stores/Todo/model';
+import { useTodo } from '../../stores/Todo/usecase';
 
 type Props = {
-  todoId: TodoState['id'];
-  onClickStatus: (todoId: TodoState['id']) => void;
-  onClickEdit: (todoId: TodoState['id']) => void;
+  todoId: Todo['id'];
+  onClickStatus: (todoId: Todo['id']) => void;
+  onClickEdit: (todoId: Todo['id']) => void;
 };
 export const TodoListItem: FC<Props> = memo(
   ({ todoId, onClickStatus, onClickEdit }) => {

@@ -1,11 +1,10 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 
+import { Todo } from '@/domains/Todo';
 import { generateUniqueKey } from '@/libs/recoil/utils';
 import { getTodos } from '@/services/todos';
 
 import { filterBy, TodosFilter, TodoState } from './model';
-
-import { Todo } from 'domains/Todo';
 
 /** フェッチした Todos のキャッシュ */
 const todosQuery = selector<Todo[]>({
@@ -39,6 +38,8 @@ export const todoEntity = atomFamily<TodoState, TodoState['id']>({
             isComplete: false,
             isLoading: false,
             createdAt: '',
+            dueDate: '',
+            postponeCount: 0,
           };
           return newTodo;
         }

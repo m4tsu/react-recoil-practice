@@ -1,21 +1,20 @@
 import {
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { NewTodo, newTodoSchema } from '../../slices/TodoList/model';
-import { todoActions } from '../../slices/TodoList/usecases';
-const { useCreateTodo } = todoActions;
+import { NewTodo, newTodoSchema } from '../../stores/Todo/model';
+import { todoListActions } from '../../stores/TodoList/usecase';
+
+const { useCreateTodo } = todoListActions;
 
 export const NewTodoForm: FC = () => {
   const createTodo = useCreateTodo();
