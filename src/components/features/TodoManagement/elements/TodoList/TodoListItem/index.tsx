@@ -1,9 +1,12 @@
 import { Button, Flex, ListItem, Text } from '@chakra-ui/react';
-import dayjs from 'dayjs';
 import { FC, memo } from 'react';
 
-import { Todo } from '../../../stores/Todo/model';
+import { isOverdue, Todo } from '../../../stores/Todo/model';
 import { useTodo } from '../../../stores/Todo/usecase';
+import {
+  getFormattedDateString,
+  getTodoStatusLabel,
+} from '../../../stores/Todo/view-model';
 
 type Props = {
   todoId: Todo['id'];
@@ -31,7 +34,7 @@ export const TodoListItem: FC<Props> = memo(
               onClick={() => onClickStatus(todoId)}
               disabled={todo.isLoading}
             >
-              {todo.isComplete ? '完了' : '未完了'}
+              {getTodoStatusLabel(todo.isComplete)}
             </Button>
             <Text>{todo.title}</Text>
           </Flex>
@@ -39,20 +42,25 @@ export const TodoListItem: FC<Props> = memo(
           <Flex gap="2" alignItems="center">
             <Flex direction="column" gap="1">
               <Text>
-                作成: <time>{dayjs(todo.createdAt).format('YYYY-MM-DD')}</time>
+                作成: <time>{getFormattedDateString(todo.createdAt)}</time>
               </Text>
-              <Text>
-                期限: <time>{dayjs(todo.dueDate).format('YYYY-MM-DD')}</time>
+              <Text color={isOverdue(todo) ? 'red' : 'black'}>
+                期限: <time>{getFormattedDateString(todo.dueDate)}</time>
               </Text>
             </Flex>
             <Flex gap="2">
               <Button
                 colorScheme="orange"
                 onClick={() => onClickPostpone(todoId)}
+                disabled={todo.isLoading}
               >
                 期限を延長
               </Button>
-              <Button colorScheme="teal" onClick={() => onClickEdit(todoId)}>
+              <Button
+                colorScheme="teal"
+                onClick={() => onClickEdit(todoId)}
+                disabled={todo.isLoading}
+              >
                 編集
               </Button>
             </Flex>

@@ -19,6 +19,11 @@ export const isRecently = (todo: Todo) => {
   return dayjs(todo.createdAt) > dayjs().subtract(1, 'week');
 };
 
+/** 期限を過ぎているかどうか */
+export const isOverdue = (todo: Pick<Todo, 'dueDate'>) => {
+  return dayjs() > dayjs(todo.dueDate);
+};
+
 /** 期限を延長できるかどうか */
 export const canPostPoneSchema = todoSchema.superRefine((todo, ctx) => {
   if (todo.isComplete) {
@@ -27,7 +32,7 @@ export const canPostPoneSchema = todoSchema.superRefine((todo, ctx) => {
       message: '既に完了しています。',
     });
   }
-  if (dayjs() > dayjs(todo.dueDate)) {
+  if (isOverdue(todo)) {
     ctx.addIssue({
       code: 'custom',
       message: '既に期限が過ぎています。',

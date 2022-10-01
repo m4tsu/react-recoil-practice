@@ -81,7 +81,6 @@ export const TodoList: FC = () => {
         <Divider orientation="vertical" />
         <NewTodoForm />
       </Grid>
-
       <Text as="h2" fontSize="lg" fontWeight="bold">
         TODOリスト
       </Text>
