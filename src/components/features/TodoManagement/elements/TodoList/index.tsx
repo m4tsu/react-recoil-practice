@@ -12,14 +12,14 @@ import { FC, useCallback } from 'react';
 
 import { toast } from '@/libs/chakra/toast';
 
-import { Todo } from '../stores/Todo/model';
-import { todoActions } from '../stores/Todo/usecase';
-import { TodosFilter } from '../stores/TodoList/model';
+import { Todo } from '../../stores/Todo/model';
+import { todoActions } from '../../stores/Todo/usecase';
+import { TodosFilter } from '../../stores/TodoList/model';
 import {
   todoListActions,
   useFilteredTodoIds,
   useTodosFilter,
-} from '../stores/TodoList/usecase';
+} from '../../stores/TodoList/usecase';
 
 import { EditTodoModal } from './EditTodoModal';
 import { NewTodoForm } from './NewTodoForm';

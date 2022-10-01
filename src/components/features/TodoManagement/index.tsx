@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 
 import { Loading } from '@/components/ui/Loading';
 
-import { TodoList } from './TodoList';
+import { TodoList } from './elements/TodoList';
 
 export const TodoManagement = () => {
   return (

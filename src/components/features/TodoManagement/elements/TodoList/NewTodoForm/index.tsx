@@ -11,8 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { NewTodo, newTodoSchema } from '../../stores/Todo/model';
-import { todoListActions } from '../../stores/TodoList/usecase';
+import { NewTodo, newTodoSchema } from '../../../stores/Todo/model';
+import { todoListActions } from '../../../stores/TodoList/usecase';
 
 const { useCreateTodo } = todoListActions;
 

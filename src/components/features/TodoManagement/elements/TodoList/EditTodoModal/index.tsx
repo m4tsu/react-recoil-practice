@@ -9,9 +9,12 @@ import {
 } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
-import { Todo, TodoInput } from '../../stores/Todo/model';
-import { todoActions } from '../../stores/Todo/usecase';
-import { todoListActions, useEditingTodo } from '../../stores/TodoList/usecase';
+import { Todo, TodoInput } from '../../../stores/Todo/model';
+import { todoActions } from '../../../stores/Todo/usecase';
+import {
+  todoListActions,
+  useEditingTodo,
+} from '../../../stores/TodoList/usecase';
 
 import { EditTodoForm } from './EditTodoForm';
 

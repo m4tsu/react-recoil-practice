@@ -2,8 +2,8 @@ import { Button, Flex, ListItem, Text } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { FC, memo } from 'react';
 
-import { Todo } from '../../stores/Todo/model';
-import { useTodo } from '../../stores/Todo/usecase';
+import { Todo } from '../../../stores/Todo/model';
+import { useTodo } from '../../../stores/Todo/usecase';
 
 type Props = {
   todoId: Todo['id'];
