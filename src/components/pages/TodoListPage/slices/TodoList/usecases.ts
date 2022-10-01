@@ -1,8 +1,8 @@
 import { useRecoilCallback, useRecoilValue } from 'recoil';
 
-import { patchTodo } from '@/services/todos';
+import { patchTodo, postTodo } from '@/services/todos';
 
-import { TodoInput, TodosFilter, TodoState } from './model';
+import { NewTodo, TodoInput, TodosFilter, TodoState } from './model';
 import {
   todoIds,
   todoEntity,
@@ -37,6 +37,21 @@ export const todoActions = {
       ({ set }) =>
         (filter: TodosFilter) => {
           set(todosFilter, filter);
+        },
+      []
+    ),
+  useCreateTodo: () =>
+    useRecoilCallback(
+      ({ set }) =>
+        async (params: NewTodo) => {
+          const result = await postTodo(params);
+          console.log(result);
+          if (result.error) throw new Error('postTodo Error');
+          set(todoIds, (prev) => [result.data.id, ...prev]);
+          set(todoEntity(result.data.id), {
+            ...result.data,
+            isLoading: false,
+          });
         },
       []
     ),

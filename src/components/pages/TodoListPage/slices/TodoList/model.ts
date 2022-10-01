@@ -45,5 +45,6 @@ export type TodoInput = z.infer<typeof todoInputSchema>;
 export const newTodoSchema = todoInputSchema.omit({
   id: true,
   isComplete: true,
+  createdAt: true,
 });
 export type NewTodo = z.infer<typeof newTodoSchema>;

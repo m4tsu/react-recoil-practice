@@ -6,66 +6,60 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Text,
   Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
-import {
-  TodoState,
-  todoInputSchema,
-} from '@/components/pages/TodoListPage/slices/TodoList/model';
+import { NewTodo, newTodoSchema } from '../../slices/TodoList/model';
+import { todoActions } from '../../slices/TodoList/usecases';
+const { useCreateTodo } = todoActions;
 
-import { Todo } from 'domains/Todo';
-
-type TodoInput = z.infer<typeof todoInputSchema>;
-
-type Props = {
-  todo: TodoState;
-  onSubmit: (todoId: Todo['id'], todo: TodoInput) => void;
-};
-export const EditTodoForm: FC<Props> = ({ todo, onSubmit: onSubmitTodo }) => {
+export const NewTodoForm: FC = () => {
+  const createTodo = useCreateTodo();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
-  } = useForm<TodoInput>({
+  } = useForm<NewTodo>({
     mode: 'all',
-    defaultValues: todo,
-    resolver: zodResolver(todoInputSchema),
+    resolver: zodResolver(newTodoSchema),
   });
+
   const onSubmit = handleSubmit(async (form) => {
-    await onSubmitTodo(todo.id, form);
+    setIsLoading(true);
+    await createTodo(form);
+    reset();
+    setIsLoading(false);
   });
 
   return (
     <Flex as="form" onSubmit={onSubmit} direction="column" gap="4">
-      <FormControl id="todo-title" isInvalid={!!errors.title}>
+      <FormControl id="new-todo-title" isInvalid={!!errors.title}>
         <FormLabel>タイトル</FormLabel>
         <Input {...register('title')} />
         <FormErrorMessage>
           {errors.title && errors.title.message}
         </FormErrorMessage>
       </FormControl>
-      <FormControl id="todo-body" isInvalid={!!errors.body}>
+      <FormControl id="new-todo-body" isInvalid={!!errors.body}>
         <FormLabel>内容</FormLabel>
         <Textarea {...register('body')} />
         <FormErrorMessage>
           {errors.body && errors.body.message}
         </FormErrorMessage>
       </FormControl>
-      <FormControl>
-        <Checkbox {...register('isComplete')}>完了</Checkbox>
-      </FormControl>
       <Button
         type="submit"
         colorScheme="blue"
         disabled={!isValid}
-        isLoading={todo.isLoading}
+        isLoading={isLoading}
       >
-        保存
+        新規作成
       </Button>
     </Flex>
   );

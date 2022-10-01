@@ -1,5 +1,7 @@
 import {
+  Divider,
   Flex,
+  Grid,
   Radio,
   RadioGroup,
   Stack,
@@ -16,6 +18,7 @@ import {
 } from '../slices/TodoList/usecases';
 
 import { EditTodoModal } from './EditTodoModal';
+import { NewTodoForm } from './NewTodoForm';
 import { TodoListItem } from './TodoListItem';
 
 const { useToggleStatus, useFilterTodosBy, useStartEditing } = todoActions;
@@ -34,21 +37,30 @@ export const TodoList: FC = () => {
 
   return (
     <Flex direction="column" gap="8">
-      <EditTodoModal />
-      <RadioGroup
-        onChange={(value) => {
-          filterBy(value as TodosFilter);
-        }}
-        value={todosFilter}
-      >
-        <Stack direction="row">
-          {filterOptions.map((option) => (
-            <Radio key={option.value} value={option.value}>
-              {option.label}
-            </Radio>
-          ))}
-        </Stack>
-      </RadioGroup>
+      <Grid gridTemplateColumns="4fr 1fr 4fr">
+        <Flex direction="column" gap="4">
+          <Text as="h4" fontSize="lg">
+            絞り込み
+          </Text>
+          <RadioGroup
+            onChange={(value) => {
+              filterBy(value as TodosFilter);
+            }}
+            value={todosFilter}
+          >
+            <Stack direction="row">
+              {filterOptions.map((option) => (
+                <Radio key={option.value} value={option.value}>
+                  {option.label}
+                </Radio>
+              ))}
+            </Stack>
+          </RadioGroup>
+        </Flex>
+        <Divider orientation="vertical" />
+        <NewTodoForm />
+      </Grid>
+
       <Text as="h2" fontSize="lg" fontWeight="bold">
         TODOリスト
       </Text>
@@ -64,6 +76,7 @@ export const TodoList: FC = () => {
           ))}
         </UnorderedList>
       </Flex>
+      <EditTodoModal />
     </Flex>
   );
 };

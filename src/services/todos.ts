@@ -8,13 +8,13 @@ import { Todo } from 'domains/Todo';
 
 // Todo 関連のAPIリクエストのモック
 
-const data: Todo[] = [
+let data: Todo[] = [
   {
-    id: '1',
-    title: 'サンプルプロジェクトを作る',
-    body: 'Recoil を使ってみてやりたいことができるか確かめる。',
-    isComplete: true,
-    createdAt: dayjs().subtract(10, 'days').format(),
+    id: '3',
+    title: 'Zustand もやる',
+    body: '',
+    isComplete: false,
+    createdAt: dayjs().subtract(3, 'days').format(),
   },
   {
     id: '2',
@@ -24,11 +24,11 @@ const data: Todo[] = [
     createdAt: dayjs().subtract(5, 'days').format(),
   },
   {
-    id: '3',
-    title: 'Zustand もやる',
-    body: '',
-    isComplete: false,
-    createdAt: dayjs().subtract(3, 'days').format(),
+    id: '1',
+    title: 'サンプルプロジェクトを作る',
+    body: 'Recoil を使ってみてやりたいことができるか確かめる。',
+    isComplete: true,
+    createdAt: dayjs().subtract(10, 'days').format(),
   },
 ];
 
@@ -45,11 +45,16 @@ export const getTodos = async (): Promise<Result<Todo[]>> => {
 };
 
 export const postTodo = async (
-  newTodo: Omit<Todo, 'id' | 'createdAt'>
+  newTodo: Omit<Todo, 'id' | 'isComplete' | 'createdAt'>
 ): Promise<Result<Todo>> => {
   await sleep();
-  const todo = { ...newTodo, id: uuidv4(), createdAt: dayjs().format() };
-  data.push(todo);
+  const todo = {
+    ...newTodo,
+    id: uuidv4(),
+    isComplete: false,
+    createdAt: dayjs().format(),
+  };
+  data = [todo, ...data];
   return generateResponse(todo);
 };
 
