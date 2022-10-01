@@ -9,6 +9,7 @@ import {
   editingTodoId,
   filterdTodoIds,
   todosFilter,
+  editingTodo,
 } from './store';
 
 // 「状態管理」をコンポーネントに提供する層
@@ -19,13 +20,14 @@ import {
 export const useTodoIds = () => useRecoilValue(todoIds);
 
 export const useTodo = (todoId: TodoState['id']) => {
-  console.log('useTodo!!!');
   return useRecoilValue(todoEntity(todoId));
 };
 
 export const useTodosFilter = () => useRecoilValue(todosFilter);
 
 export const useFilteredTodoIds = () => useRecoilValue(filterdTodoIds);
+
+export const useEditingTodo = () => useRecoilValue(editingTodo);
 
 // 状態を更新するアクションは基本的に不変なはずなので単一のオブジェクトとしてまとめたい
 // 冗長で見づらいしファクトリ関数的なものを用意したい
@@ -42,9 +44,14 @@ export const todoActions = {
     useRecoilCallback(
       ({ set }) =>
         async (todoId: TodoState['id'], params: TodoInput) => {
+          set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
           const result = await patchTodo({ id: todoId, params });
           if (result.error) throw new Error('patchTodo Error');
-          set(todoEntity(todoId), (prev) => ({ ...prev, ...result.data }));
+          set(todoEntity(todoId), (prev) => ({
+            ...prev,
+            ...result.data,
+            isLoading: false,
+          }));
         },
       []
     ),
@@ -58,7 +65,6 @@ export const todoActions = {
             id: todoId,
             params: { ...todo, isComplete: !todo.isComplete },
           });
-          console.log(result);
           if (result.error) throw new Error('patchTodo Error');
           set(todoEntity(todoId), (prev) => ({
             ...prev,

@@ -15,9 +15,10 @@ import {
   useTodosFilter,
 } from '../slices/TodoList/usecases';
 
+import { EditTodoModal } from './EditTodoModal';
 import { TodoListItem } from './TodoListItem';
 
-const { useToggleStatus, useFilterTodosBy } = todoActions;
+const { useToggleStatus, useFilterTodosBy, useStartEditing } = todoActions;
 
 const filterOptions: { value: TodosFilter; label: string }[] = [
   { value: 'all', label: 'All' },
@@ -29,9 +30,11 @@ export const TodoList: FC = () => {
   const toggleStatus = useToggleStatus();
   const filterBy = useFilterTodosBy();
   const todosFilter = useTodosFilter();
+  const startEditing = useStartEditing();
 
   return (
     <Flex direction="column" gap="8">
+      <EditTodoModal />
       <RadioGroup
         onChange={(value) => {
           filterBy(value as TodosFilter);
@@ -56,6 +59,7 @@ export const TodoList: FC = () => {
               key={todoId}
               todoId={todoId}
               onClickStatus={toggleStatus}
+              onClickEdit={startEditing}
             />
           ))}
         </UnorderedList>

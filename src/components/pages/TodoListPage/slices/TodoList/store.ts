@@ -65,6 +65,14 @@ export const editingTodoId = atom<TodoState['id'] | null>({
   default: null,
 });
 
+export const editingTodo = selector<TodoState | null>({
+  key: generateUniqueKey('editingTodo'),
+  get: ({ get }) => {
+    const id = get(editingTodoId);
+    return id ? get(todoEntity(id)) : null;
+  },
+});
+
 /** TodoList の絞り込み条件 */
 export const todosFilter = atom<TodosFilter>({
   key: generateUniqueKey('todosFilter'),

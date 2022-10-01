@@ -38,6 +38,7 @@ export const todoInputSchema = todoSchema.omit({ id: true }).extend({
   body: z.string().max(200, '200文字以内で入力してください'),
   isComplete: z.boolean(),
 });
+
 export type TodoInput = z.infer<typeof todoInputSchema>;
 
 /** 新規Todoのスキーマ */
