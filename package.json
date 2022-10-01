@@ -13,7 +13,8 @@
     "format": "prettier --check src/**/*.{ts,tsx,js,jsx,json,md}",
     "format:fix": "prettier --write src/**/*.{ts,tsx,js,jsx,json,md}",
     "test": "jest",
-    "test:coverage": "jest --collect-coverage"
+    "test:coverage": "jest --collect-coverage",
+    "depcruise": "depcruise src --include-only '^src' --config --output-type dot | dot -T svg > dependency-graph.svg"
   },
   "husky": {
     "hooks": {
@@ -44,6 +45,7 @@
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "dependency-cruiser": "^11.16.1",
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
