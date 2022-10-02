@@ -3,7 +3,8 @@ import { createContext, FC, ReactNode, useContext, useEffect } from 'react';
 import React from 'react';
 
 import { Loading } from '@/components/ui/Loading';
-import { toast } from '@/libs/chakra/toast';
+
+import { toast } from '../toast';
 
 import { CurrentUser } from './store/model';
 import { useAuth } from './store/usecase';

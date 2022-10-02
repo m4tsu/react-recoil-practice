@@ -1,16 +1,7 @@
-import {
-  Divider,
-  Flex,
-  Grid,
-  Radio,
-  RadioGroup,
-  Stack,
-  Text,
-  UnorderedList,
-} from '@chakra-ui/react';
+import { Flex, Text, UnorderedList } from '@chakra-ui/react';
 import { FC, useCallback } from 'react';
 
-import { toast } from '@/libs/chakra/toast';
+import { toast } from '@/services/toast';
 
 import { Todo } from '../../stores/Todo/model';
 import { todoActions } from '../../stores/Todo/usecase';
