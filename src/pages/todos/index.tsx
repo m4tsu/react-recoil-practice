@@ -1,7 +1,7 @@
-import { TodoManagement } from '@/components/features/TodoManagement';
+import { TodoListPage } from '@/components/pages/TodoListPage';
 
 const Page = () => {
-  return <TodoManagement />;
+  return <TodoListPage />;
 };
 
 export default Page;

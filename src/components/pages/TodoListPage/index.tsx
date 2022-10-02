@@ -6,11 +6,11 @@ import { Loading } from '@/components/ui/Loading';
 
 import { TodoList } from './elements/TodoList';
 
-export const TodoManagement = () => {
+export const TodoListPage = () => {
   return (
     <Flex direction="column" gap="4">
       <Text as="h1" fontWeight="bold" fontSize="2xl">
-        TODO管理機能
+        TODOリストページ
       </Text>
       <RecoilRoot>
         <Suspense fallback={<Loading />}>
