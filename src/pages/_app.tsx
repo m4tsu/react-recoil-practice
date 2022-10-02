@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 
 import { AppLayout } from '@/components/layouts/AppLayout';
 import { ToastContainer } from '@/libs/chakra/toast';
-import { useAuth } from '@/stores/Auth/usecase';
+import { useAuthActions } from '@/services/auth/store/usecase';
 
 import type { AppProps } from 'next/app';
 
@@ -17,7 +17,7 @@ dayjs.extend(utc);
 
 // RecoilRoot の下で実行させたい
 const Auth: FC = () => {
-  const { login } = useAuth();
+  const { login } = useAuthActions();
   useEffect(() => {
     login();
   }, [login]);

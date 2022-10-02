@@ -3,12 +3,10 @@ import { FC } from 'react';
 
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
 import { Loading } from '@/components/ui/Loading';
-import { useAuth } from '@/stores/Auth/usecase';
+import { useAuth } from '@/services/auth/store/usecase';
 
 export const UserMenu: FC = () => {
-  const {
-    auth: { isLoading, currentUser },
-  } = useAuth();
+  const { isLoading, currentUser } = useAuth();
 
   if (isLoading) return <Loading />;
 

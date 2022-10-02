@@ -2,7 +2,7 @@ import { Button, Flex, ListItem, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
-import { useCurrentUser } from '@/stores/Auth/usecase';
+import { useCurrentUser } from '@/services/auth/currentUserContext';
 
 import { isEditable, isOverdue, Todo } from '../../../stores/Todo/model';
 import { useTodo } from '../../../stores/Todo/usecase';

@@ -2,7 +2,7 @@
 - pages - ルーティングとレイアウト
   - TodoListPage
     - index.tsx - この feature Component のエントリポイント
-    - children - TodoManagement コンポーネントを構成する子コンポーネント
+    - children - TodoListPage コンポーネントを構成する子コンポーネント
       - TodoList
         - index.tsx
     - store - view 以外の層

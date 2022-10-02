@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { z } from 'zod';
 
 import { Todo as TodoDomain, todoSchema } from '@/domain-models/Todo';
-import { CurrentUser } from '@/stores/Auth/model';
+import { CurrentUser } from '@/services/auth/store/model';
 
 // Todo という状態をモデリングして表現する層
 

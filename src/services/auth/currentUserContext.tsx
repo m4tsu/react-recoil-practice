@@ -1,52 +1,12 @@
 import { useRouter } from 'next/router';
-import {
-  createContext,
-  FC,
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-} from 'react';
+import { createContext, FC, ReactNode, useContext, useEffect } from 'react';
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { Loading } from '@/components/ui/Loading';
 import { toast } from '@/libs/chakra/toast';
-import { getCurrentUser } from '@/repositories/auth';
 
-import { CurrentUser } from './model';
-import { auth as authState } from './state';
-
-export const useAuth = () => {
-  const [auth, setAuth] = useRecoilState(authState);
-
-  const login = useCallback(async () => {
-    setAuth({
-      isLoading: true,
-      currentUser: undefined,
-      authenticated: undefined,
-    });
-    const user = await getCurrentUser();
-    if (user) {
-      setAuth({ isLoading: false, currentUser: user, authenticated: true });
-    } else {
-      setAuth({
-        isLoading: false,
-        currentUser: undefined,
-        authenticated: false,
-      });
-    }
-  }, [setAuth]);
-
-  const logout = useCallback(() => {
-    setAuth({
-      isLoading: false,
-      currentUser: undefined,
-      authenticated: undefined,
-    });
-  }, [setAuth]);
-  return { auth, login, logout };
-};
+import { CurrentUser } from './store/model';
+import { useAuth } from './store/usecase';
 
 const CurrentUserContext = createContext<CurrentUser | undefined>(undefined);
 
@@ -54,7 +14,7 @@ type AuthGuardProps = {
   children: ReactNode;
 };
 export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
-  const auth = useRecoilValue(authState);
+  const auth = useAuth();
   const router = useRouter();
 
   useEffect(() => {
