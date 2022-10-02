@@ -1,6 +1,6 @@
 import { useRecoilValue, useRecoilCallback } from 'recoil';
 
-import { postTodo } from '@/services/todos';
+import { postTodo } from '@/repositories/todos';
 
 import { NewTodo, Todo } from '../Todo/model';
 import { todoEntity } from '../Todo/state';
