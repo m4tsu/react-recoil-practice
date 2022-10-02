@@ -7,7 +7,7 @@ import { useCurrentUser } from '@/store/Auth/usecase';
 import { isEditable, isOverdue, Todo } from '../../../stores/Todo/model';
 import { useTodo } from '../../../stores/Todo/usecase';
 import {
-  getFormattedDateString,
+  formatDate,
   getTodoStatusLabel,
 } from '../../../stores/Todo/view-model';
 
@@ -52,10 +52,10 @@ export const TodoListItem: FC<Props> = memo(
           <Flex gap="2" alignItems="center">
             <Flex direction="column" gap="1">
               <Text>
-                作成: <time>{getFormattedDateString(todo.createdAt)}</time>
+                作成: <time>{formatDate(todo.createdAt)}</time>
               </Text>
               <Text color={isOverdue(todo) ? 'red' : 'black'}>
-                期限: <time>{getFormattedDateString(todo.dueDate)}</time>
+                期限: <time>{formatDate(todo.dueDate)}</time>
               </Text>
             </Flex>
             <Flex gap="2">
