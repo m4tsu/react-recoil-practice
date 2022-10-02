@@ -2,10 +2,10 @@
 - pages - ルーティングとレイアウト
   - TodoListPage
     - index.tsx - この feature Component のエントリポイント
-    - elements - TodoManagement コンポーネントを構成する子コンポーネント
+    - children - TodoManagement コンポーネントを構成する子コンポーネント
       - TodoList
         - index.tsx
-    - stores - view 以外の層
+    - store - view 以外の層
       - Todo
         - model.ts - モデリング対象の型とドメインロジック
         - store.ts - React State の実装

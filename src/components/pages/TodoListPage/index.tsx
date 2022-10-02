@@ -3,9 +3,9 @@ import { Suspense } from 'react';
 
 import { Loading } from '@/components/ui/Loading';
 
-import { TodoList } from './elements/TodoList';
-import { NewTodoForm } from './elements/TodoList/NewTodoForm';
-import { TodosFilterSection } from './elements/TodoList/TodosFilter';
+import { TodoList } from './children/TodoList';
+import { NewTodoForm } from './children/TodoList/NewTodoForm';
+import { TodosFilterSection } from './children/TodoList/TodosFilter';
 
 export const TodoListPage = () => {
   return (
