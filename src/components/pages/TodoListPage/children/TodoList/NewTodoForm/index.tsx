@@ -11,10 +11,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useCurrentUser } from '@/store/Auth/usecase';
+import { useCurrentUser } from '@/stores/Auth/usecase';
 
-import { NewTodo, newTodoSchema } from '../../../store/Todo/model';
-import { todoListActions } from '../../../store/TodoList/usecase';
+import { NewTodo, newTodoSchema } from '../../../stores/Todo/model';
+import { todoListActions } from '../../../stores/TodoList/usecase';
 
 const { useCreateTodo } = todoListActions;
 

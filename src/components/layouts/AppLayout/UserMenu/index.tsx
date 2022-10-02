@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
 import { Loading } from '@/components/ui/Loading';
-import { useAuth } from '@/store/Auth/usecase';
+import { useAuth } from '@/stores/Auth/usecase';
 
 export const UserMenu: FC = () => {
   const {

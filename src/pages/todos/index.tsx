@@ -1,5 +1,5 @@
 import { TodoListPage } from '@/components/pages/TodoListPage';
-import { AuthGuard } from '@/store/Auth/usecase';
+import { AuthGuard } from '@/stores/Auth/usecase';
 
 const Page = () => {
   return (

@@ -13,7 +13,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { todoInputSchema, Todo } from '../../../../store/Todo/model';
+import { todoInputSchema, Todo } from '../../../../stores/Todo/model';
 
 type TodoInput = z.infer<typeof todoInputSchema>;
 

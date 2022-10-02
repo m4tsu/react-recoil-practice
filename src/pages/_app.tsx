@@ -8,7 +8,7 @@ import { RecoilRoot } from 'recoil';
 
 import { AppLayout } from '@/components/layouts/AppLayout';
 import { ToastContainer } from '@/libs/chakra/toast';
-import { useAuth } from '@/store/Auth/usecase';
+import { useAuth } from '@/stores/Auth/usecase';
 
 import type { AppProps } from 'next/app';
 

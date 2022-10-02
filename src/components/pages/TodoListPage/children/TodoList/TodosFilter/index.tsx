@@ -1,11 +1,11 @@
 import { Flex, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 
-import { TodosFilter } from '../../../store/TodoList/model';
+import { TodosFilter } from '../../../stores/TodoList/model';
 import {
   todoListActions,
   useTodosFilter,
-} from '../../../store/TodoList/usecase';
+} from '../../../stores/TodoList/usecase';
 
 const { useFilterTodosBy } = todoListActions;
 
