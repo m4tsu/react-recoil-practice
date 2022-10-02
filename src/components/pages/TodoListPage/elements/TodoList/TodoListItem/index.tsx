@@ -4,12 +4,9 @@ import { FC, memo } from 'react';
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
 import { useCurrentUser } from '@/store/Auth/usecase';
 
-import { isEditable, isOverdue, Todo } from '../../../stores/Todo/model';
-import { useTodo } from '../../../stores/Todo/usecase';
-import {
-  formatDate,
-  getTodoStatusLabel,
-} from '../../../stores/Todo/view-model';
+import { isEditable, isOverdue, Todo } from '../../../store/Todo/model';
+import { useTodo } from '../../../store/Todo/usecase';
+import { formatDate, getTodoStatusLabel } from '../../../store/Todo/view-model';
 
 type Props = {
   todoId: Todo['id'];

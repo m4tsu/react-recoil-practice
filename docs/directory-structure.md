@@ -1,7 +1,6 @@
 ## ディレクトリ構造
 - pages - ルーティングとレイアウト
-- features
-  - TodoManagement
+  - TodoListPage
     - index.tsx - この feature Component のエントリポイント
     - elements - TodoManagement コンポーネントを構成する子コンポーネント
       - TodoList
