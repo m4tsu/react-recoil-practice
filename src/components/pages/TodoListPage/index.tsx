@@ -1,7 +1,7 @@
 import { Divider, Flex, Grid, Text } from '@chakra-ui/react';
 import { Suspense } from 'react';
 
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@/components/ui/elements/Loading';
 
 import { TodoList } from './children/TodoList';
 import { NewTodoForm } from './children/TodoList/NewTodoForm';

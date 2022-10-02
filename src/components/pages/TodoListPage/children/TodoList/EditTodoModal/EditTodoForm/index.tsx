@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   Flex,
   FormControl,
@@ -12,6 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+
+import { Button } from '@/components/ui/elements/Button';
 
 import { todoInputSchema, Todo } from '../../../../stores/Todo/model';
 

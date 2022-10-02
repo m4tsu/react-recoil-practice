@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { createContext, FC, ReactNode, useContext, useEffect } from 'react';
 import React from 'react';
 
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@/components/ui/elements/Loading';
 
 import { toast } from '../toast';
 

@@ -2,7 +2,7 @@ import { Box, Text } from '@chakra-ui/react';
 import { FC } from 'react';
 
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
-import { Loading } from '@/components/ui/Loading';
+import { Loading } from '@/components/ui/elements/Loading';
 import { useAuth } from '@/services/auth/store/usecase';
 
 export const UserMenu: FC = () => {

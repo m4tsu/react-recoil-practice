@@ -1,7 +1,7 @@
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import { Link } from '@/components/ui/Link';
+import { Link } from '@/components/ui/elements/Link';
 
 import { UserMenu } from './UserMenu';
 
