@@ -1,7 +1,10 @@
 import { Button, Flex, ListItem, Text } from '@chakra-ui/react';
 import { FC, memo } from 'react';
 
-import { isOverdue, Todo } from '../../../stores/Todo/model';
+import { UserAvator } from '@/components/features/User-domain/UserAvator';
+import { useCurrentUser } from '@/store/Auth/usecase';
+
+import { isEditable, isOverdue, Todo } from '../../../stores/Todo/model';
 import { useTodo } from '../../../stores/Todo/usecase';
 import {
   getFormattedDateString,
@@ -16,6 +19,7 @@ type Props = {
 };
 export const TodoListItem: FC<Props> = memo(
   ({ todoId, onClickStatus, onClickEdit, onClickPostpone }) => {
+    const currentUser = useCurrentUser();
     const todo = useTodo(todoId);
 
     return (
@@ -36,6 +40,12 @@ export const TodoListItem: FC<Props> = memo(
             >
               {getTodoStatusLabel(todo.isComplete)}
             </Button>
+            {todo.userId === currentUser.id && (
+              <UserAvator
+                name={currentUser.name}
+                avatarUrl={currentUser.avatarUrl}
+              />
+            )}
             <Text>{todo.title}</Text>
           </Flex>
 
@@ -59,7 +69,7 @@ export const TodoListItem: FC<Props> = memo(
               <Button
                 colorScheme="teal"
                 onClick={() => onClickEdit(todoId)}
-                disabled={todo.isLoading}
+                disabled={todo.isLoading || !isEditable(todo, currentUser.id)}
               >
                 編集
               </Button>

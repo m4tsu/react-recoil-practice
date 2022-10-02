@@ -3,16 +3,21 @@
 import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import { Todo as TodoDomain, todoSchema } from '@/domains/Todo';
+import { Todo as TodoDomain, todoSchema } from '@/domain-models/Todo';
+import { CurrentUser } from '@/store/Auth/model';
 
 // Todo という状態をモデリングして表現する層
+
+const MAX_POSTPONE_COUNT = 1;
 
 // Reactで扱いたい状態としての型
 export type Todo = TodoDomain & {
   isLoading: boolean;
 };
 
-const POSTPONE_LIMIT = 1;
+export const isEditable = (todo: Todo, currentUserId: CurrentUser['id']) => {
+  return currentUserId === todo.userId;
+};
 
 /** "最近" 作成されたかどうか */
 export const isRecently = (todo: Todo) => {
@@ -38,7 +43,7 @@ export const canPostPoneSchema = todoSchema.superRefine((todo, ctx) => {
       message: '既に期限が過ぎています。',
     });
   }
-  if (todo.postponeCount >= POSTPONE_LIMIT) {
+  if (todo.postponeCount >= MAX_POSTPONE_COUNT) {
     ctx.addIssue({
       code: 'custom',
       message: '期限は一度しか延期できません。',
@@ -60,9 +65,8 @@ export const todoInputSchema = todoSchema
 export type TodoInput = z.infer<typeof todoInputSchema>;
 
 /** 新規Todoのスキーマ */
-export const newTodoSchema = todoInputSchema.omit({
-  id: true,
-  isComplete: true,
-  createdAt: true,
+export const newTodoSchema = todoInputSchema.pick({
+  title: true,
+  body: true,
 });
 export type NewTodo = z.infer<typeof newTodoSchema>;

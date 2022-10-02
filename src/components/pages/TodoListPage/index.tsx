@@ -1,10 +1,11 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Divider, Flex, Grid, Text } from '@chakra-ui/react';
 import { Suspense } from 'react';
-import { RecoilRoot } from 'recoil';
 
 import { Loading } from '@/components/ui/Loading';
 
 import { TodoList } from './elements/TodoList';
+import { NewTodoForm } from './elements/TodoList/NewTodoForm';
+import { TodosFilterSection } from './elements/TodoList/TodosFilter';
 
 export const TodoListPage = () => {
   return (
@@ -12,11 +13,16 @@ export const TodoListPage = () => {
       <Text as="h1" fontWeight="bold" fontSize="2xl">
         TODOリストページ
       </Text>
-      <RecoilRoot>
+      <Flex direction="column" gap="8">
+        <Grid gridTemplateColumns="4fr 1fr 4fr">
+          <TodosFilterSection />
+          <Divider orientation="vertical" />
+          <NewTodoForm />
+        </Grid>
         <Suspense fallback={<Loading />}>
           <TodoList />
         </Suspense>
-      </RecoilRoot>
+      </Flex>
     </Flex>
   );
 };

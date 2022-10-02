@@ -1,6 +1,6 @@
 import { atomFamily, selector, selectorFamily } from 'recoil';
 
-import { Todo as TodoDomain } from '@/domains/Todo';
+import { Todo as TodoDomain } from '@/domain-models/Todo';
 import { generateUniqueKey } from '@/libs/recoil/utils';
 import { getTodos } from '@/repositories/todos';
 
@@ -35,6 +35,7 @@ export const todoEntity = atomFamily<Todo, Todo['id']>({
           // 実際は useRecoilCallback の set で値を持ったデータが入るので、この状態でコンポーネントに現れることはない... なんかもっといいやり方ありそう
           const newTodo: Todo = {
             id: todoId,
+            userId: '',
             title: '',
             body: '',
             isComplete: false,

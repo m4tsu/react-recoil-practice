@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 
 import { Link } from '@/components/ui/Link';
 
+import { UserMenu } from './UserMenu';
+
 type Props = {
   children: ReactNode;
 };
@@ -40,6 +42,7 @@ export const AppLayout = ({ children }: Props) => {
               >
                 <Text>Todoリスト</Text>
               </Link>
+              <UserMenu />
             </Flex>
           </Flex>
         </Container>

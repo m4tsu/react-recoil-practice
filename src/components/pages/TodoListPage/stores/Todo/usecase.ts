@@ -21,11 +21,10 @@ export const todoActions = {
             params: { ...todo, ...params },
           });
           if (result.error) throw new Error('patchTodo Error');
-          set(todoEntity(todoId), (prev) => ({
-            ...prev,
+          set(todoEntity(todoId), {
             ...result.data,
             isLoading: false,
-          }));
+          });
         },
       []
     ),
@@ -37,11 +36,10 @@ export const todoActions = {
           set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
           const result = await updateStatus(todoId, !todo.isComplete);
           if (result.error) throw new Error('patchTodo Error');
-          set(todoEntity(todoId), (prev) => ({
-            ...prev,
+          set(todoEntity(todoId), {
             ...result.data,
             isLoading: false,
-          }));
+          });
         },
       []
     ),
@@ -59,11 +57,10 @@ export const todoActions = {
           set(todoEntity(todoId), (prev) => ({ ...prev, isLoading: true }));
           const result = await postpone(todoId);
           if (result.error) throw new Error('patchTodo Error');
-          set(todoEntity(todoId), (prev) => ({
-            ...prev,
+          set(todoEntity(todoId), {
             ...result.data,
             isLoading: false,
-          }));
+          });
           return {};
         },
       []

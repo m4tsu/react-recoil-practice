@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Todo } from '@/domains/Todo';
+import { Todo } from '@/domain-models/Todo';
 import { Result } from '@/libs/fetcher';
 import { sleep } from '@/utils/sleep';
 
@@ -10,6 +10,7 @@ import { sleep } from '@/utils/sleep';
 let data: Todo[] = [
   {
     id: '3',
+    userId: '1',
     title: 'Zustand もやる',
     body: '',
     isComplete: false,
@@ -19,6 +20,7 @@ let data: Todo[] = [
   },
   {
     id: '2',
+    userId: '2',
     title: 'Recoilのスクラップか記事書く',
     body: '',
     isComplete: false,
@@ -28,6 +30,7 @@ let data: Todo[] = [
   },
   {
     id: '1',
+    userId: '1',
     title: 'サンプルプロジェクトを作る',
     body: 'Recoil を使ってみてやりたいことができるか確かめる。',
     isComplete: true,
@@ -50,12 +53,14 @@ export const getTodos = async (): Promise<Result<Todo[]>> => {
 };
 
 export const postTodo = async (
+  userId: Todo['userId'],
   newTodo: Pick<Todo, 'title' | 'body'>
 ): Promise<Result<Todo>> => {
   await sleep();
   const todo: Todo = {
     ...newTodo,
     id: uuidv4(),
+    userId,
     isComplete: false,
     createdAt: dayjs().format(),
     dueDate: dayjs().add(7, 'days').format(),

@@ -11,6 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useCurrentUser } from '@/store/Auth/usecase';
+
 import { NewTodo, newTodoSchema } from '../../../stores/Todo/model';
 import { todoListActions } from '../../../stores/TodoList/usecase';
 
@@ -18,6 +20,7 @@ const { useCreateTodo } = todoListActions;
 
 export const NewTodoForm: FC = () => {
   const createTodo = useCreateTodo();
+  const currentUser = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -31,7 +34,7 @@ export const NewTodoForm: FC = () => {
 
   const onSubmit = handleSubmit(async (form) => {
     setIsLoading(true);
-    await createTodo(form);
+    await createTodo(currentUser.id, form);
     reset();
     setIsLoading(false);
   });

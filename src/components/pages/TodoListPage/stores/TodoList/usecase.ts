@@ -36,8 +36,8 @@ export const todoListActions = {
   useCreateTodo: () =>
     useRecoilCallback(
       ({ set }) =>
-        async (params: NewTodo) => {
-          const result = await postTodo(params);
+        async (userId: Todo['id'], params: NewTodo) => {
+          const result = await postTodo(userId, params);
           if (result.error) throw new Error('postTodo Error');
           set(todoIds, (prev) => [result.data.id, ...prev]);
           set(todoEntity(result.data.id), {
