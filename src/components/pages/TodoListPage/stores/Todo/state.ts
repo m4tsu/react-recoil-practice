@@ -2,7 +2,7 @@ import { atomFamily, selector, selectorFamily } from 'recoil';
 
 import { Todo as TodoDomain } from '@/domain-models/Todo';
 import { generateUniqueKey } from '@/libs/recoil/utils';
-import { getTodos } from '@/repositories/todos';
+import { getTodos } from '@/services/todos';
 
 import { Todo } from './model';
 

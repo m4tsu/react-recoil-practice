@@ -1,6 +1,6 @@
 import { useRecoilValue, useRecoilCallback } from 'recoil';
 
-import { patchTodo, postpone, updateStatus } from '@/repositories/todos';
+import { patchTodo, postpone, updateStatus } from '@/services/todos';
 
 import { canPostPoneSchema, Todo, TodoInput } from './model';
 import { todoEntity } from './state';

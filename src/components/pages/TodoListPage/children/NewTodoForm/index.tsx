@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { useCurrentUser } from '@/services/auth/currentUserContext';
+import { useCurrentUser } from '@/concerns/auth/currentUserContext';
 
 import { NewTodo, newTodoSchema } from '../../stores/Todo/model';
 import { todoListActions } from '../../stores/TodoList/usecase';

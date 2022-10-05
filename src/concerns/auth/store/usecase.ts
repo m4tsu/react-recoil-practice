@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { getCurrentUser } from '@/repositories/auth';
+import { getCurrentUser } from '@/services/auth';
 
 import { auth as authState } from './state';
 

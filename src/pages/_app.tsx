@@ -7,8 +7,8 @@ import { FC, useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import { AppLayout } from '@/components/layouts/AppLayout';
-import { useAuthActions } from '@/services/auth/store/usecase';
-import { ToastContainer } from '@/services/toast';
+import { useAuthActions } from '@/concerns/auth/store/usecase';
+import { ToastContainer } from '@/concerns/toast';
 
 import type { AppProps } from 'next/app';
 

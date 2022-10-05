@@ -1,5 +1,5 @@
 import { TodoListPage } from '@/components/pages/TodoListPage';
-import { AuthGuard } from '@/services/auth/currentUserContext';
+import { AuthGuard } from '@/concerns/auth/currentUserContext';
 
 const Page = () => {
   return (

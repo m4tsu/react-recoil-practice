@@ -3,7 +3,7 @@ import { FC, memo } from 'react';
 
 import { UserAvator } from '@/components/features/User-domain/UserAvator';
 import { Button } from '@/components/ui/elements/Button';
-import { useCurrentUser } from '@/services/auth/currentUserContext';
+import { useCurrentUser } from '@/concerns/auth/currentUserContext';
 
 import { isEditable, isOverdue, Todo } from '../../../stores/Todo/model';
 import { useTodo } from '../../../stores/Todo/usecase';

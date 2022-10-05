@@ -1,7 +1,7 @@
 import { Flex, Text, UnorderedList } from '@chakra-ui/react';
 import { FC, useCallback } from 'react';
 
-import { toast } from '@/services/toast';
+import { toast } from '@/concerns/toast';
 
 import { Todo } from '../../stores/Todo/model';
 import { todoActions } from '../../stores/Todo/usecase';
